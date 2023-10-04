@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useMemo, useState } from "react";
+import "./App.css";
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [item, setItem] = useState(10);
+
+  const multiCountMemo = useMemo(
+    function multiCount() {
+      console.warn("multi Count");
+      return count * 5;
+    },
+    [count]
+  );
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>UseMemo</h1>
+
+      <h3>Count : {count}</h3>
+      <h3>Items : {item}</h3>
+      <h3>Multi Count: {multiCountMemo}</h3>
+
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Count
+      </button>
+      <button
+        onClick={() => {
+          setItem(item * 10);
+        }}
+      >
+        Item
+      </button>
     </div>
   );
 }
